@@ -1,0 +1,7 @@
+{% if result.get('alert','') == 1%}
+<div class="alert alert-block {% if result['success'] == 1%} alert-success {% else %} alert-error {% end %}">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <h4>{% if result['success'] == 1%} 操作成功 {% else %} 操作失败 {% end %}</h4>
+  {{result['return_code']}}
+</div>
+{% end %}

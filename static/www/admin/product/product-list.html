@@ -1,0 +1,68 @@
+{% extends "../../_base.html" %}
+
+{% block navs %}
+{% module Template("admin/_navs.html", menu='admin') %}
+{% end %}
+
+{% block main %}
+<div class="row">
+    <div class="span12">
+        <ul class="nav nav-tabs">
+            {% module Template("admin/_tabs.html", menu = 'product') %}
+        </ul>
+
+        <ul class="breadcrumb">
+            <li><a href="/admin"><i class="icon-th"></i> 控制面板</a> <span class="divider">/</span></li>
+            <li class="active">商品列表</li>
+        </ul>
+
+        {% if result is not None %}
+        {% module Template("admin/_alert.html",result = result) %}
+        {% end %}
+
+        <form method="get">
+            <div style="float:right" class="control-group">
+                <label class="control-label main_font" for="search" style="display:inline-block;margin-right:10px">搜索:</label>
+                <input class="controls" type="text" id="search" name="search" style="margin:0px" value="{{search}}">
+                <input class="btn" type="submit">
+                <a class="btn" href="/admin/product/list">清除查询</a>
+            </div>
+            <table class="table table-hover table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th style="width: 60px">编号</th>
+                        <th style="width: 60px">商品聚合名</th>
+                        <th style="width: 60px">商品聚合编码</th>
+                        <th style="width: 60px">商品名</th>
+                        <th style="width: 60px">SKU</th>
+                        <th style="width: 60px">商品类型</th>
+                        <th style="width: 80px">价格</th>
+                        <th style="width: 60px">添加时间</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if result['data'] %}
+                    {% for d in result['data'] %}
+                    <tr>
+                        <td><a href="/admin/product/edit?product_id={{ d.get('_id','')}}">{{ d.get('_id','')}}</a></td>
+                        <td>{{ d.get('show_name','')}}</td>
+                        <td>{{ d.get('show_code','')}}</td>
+                        <td>{{ d.get('name','')}}</td>
+                        <td>{{ d.get('sku','')}}</td>
+                        <td>{{ d.get('type','')}}</td>
+                        <td>{{ d.get('price','')}}</td>
+                        <td>{{ d.get('add_time','')}}</td>
+                    </tr>
+                    {% end %}
+                    {% else %}
+                    <tr>
+                        <td colspan="8" style="text-align:center">没有发现内容</td>
+                    </tr>
+                    {% end %}
+                </tbody>
+            </table>
+        </form>
+        {% module Template("_page.html", pager=result['pager'],search="",url="/admin/product/list") %}
+    </div>
+</div>
+{% end %}

@@ -1,0 +1,20 @@
+{% if pager['enable']%}
+<div class="pagination pagination-centered">
+    <ul>
+        {% if pager['pages'][0] == 1 %}
+            <li class=" disabled "><span>&laquo;</span></li>
+        {% else %}
+            <li ><a href="{{url}}?page={{pager['pages'][0] - 1}}&search={{search}}">&laquo;</a></li>
+        {% end %}
+        {% for page in pager['pages'] %}
+            {% set _page = page %}
+            <li class="{% if pager['page'] == page%} active{%end%}"><a href="{{url}}?page={{page}}&search={{search}}">{{ page }}</a></li>
+        {% end %}
+        {% if pager['max_page'] == _page %}
+            <li class=" disabled "><span>&raquo;</span></li>
+        {% else %}
+            <li ><a href="{{url}}?page={{_page + 1}}&search={{search}}">&raquo;</a></li>
+        {% end %}
+    </ul>
+</div>
+{% end%}

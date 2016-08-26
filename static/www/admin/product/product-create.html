@@ -1,0 +1,160 @@
+{% extends "../../_base.html" %}
+
+{% block title %}新增商品 - 控制面板{% end %}
+
+{% block navs %}
+{% module Template("admin/_navs.html", menu='admin') %}
+{% end %}
+
+{% block head_css %}
+<style>
+    .form-horizontal .control-label {
+        float: left;
+    }
+    .form-horizontal .controls {
+        margin-left: 80px;
+        margin-top:5px;
+    }
+
+    form .label {
+        cursor: pointer;
+    }
+</style>
+{% end %}
+
+{% block main %}
+<div class="row">
+    <div class="span12">
+        <ul class="nav nav-tabs">
+            {% module Template("admin/_tabs.html", menu = 'product') %}
+        </ul>
+
+        <ul class="breadcrumb">
+            <li><a href="/admin"><i class="icon-th"></i> 控制面板</a> <span class="divider">/</span></li>
+            <li><a href="/admin/product/list">商品管理</a> <span class="divider">/</span></li>
+            <li class="active">新增商品</li>
+        </ul>
+
+        {% if result is not None %}
+        {% module Template("admin/_alert.html",result = result) %}
+        {% end %}
+
+        <form id="form-post" class="form-horizontal request-ajax-form" method="post">
+            {% raw xsrf_form_html() %}
+            <table class="table table-bordered">
+                <tr>
+                    <td>
+                        <span>基本</span>
+                    </td>
+                    <td>
+                        <div class="control-group">
+                            <label class="control-label" for="input_show_name">商品聚合名</label>
+                            <div class="controls">
+                                <input class="input-xlarge" type="text" id="input_show_name" name="obj['show_name']" value="" required>
+                            </div>
+                            <label class="control-label" for="input_show_code">商品聚合编码</label>
+                            <div class="controls">
+                                <input class="input-xlarge" type="text" id="input_show_code" name="obj['show_code']" value="" required>
+                            </div>
+                            <label class="control-label" for="input_name">商品名</label>
+                            <div class="controls">
+                                <input class="input-xlarge" type="text" id="input_name" name="obj['name']" value="" required>
+                            </div>
+                            <label class="control-label" for="input_sku">商品SKU（唯一）</label>
+                            <div class="controls">
+                                <input class="input-xlarge" type="text" id="input_sku" name="obj['sku']" value="" required>
+                            </div>
+                            <label class="control-label" for="input_type">商品类别</label>
+                            <div class="controls">
+                                <input class="input-xlarge" type="text" id="input_type" name="obj['type']" value="" required>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>详细</span>
+                    </td>
+                    <td>
+                        <div class="control-group">
+                            <label class="control-label" for="input_desc">描述内容</label>
+                            <div class="controls">
+                                <input class="input-xlarge" type="text" id="input_desc" name="obj['desc']" value="" required>
+                            </div>
+                            <label class="control-label" for="input_price">价格</label>
+                            <div class="controls">
+                                <input class="input-xlarge" type="text" id="input_price" name="obj['price']" value="" required>
+                            </div>
+                            <label class="control-label" for="input_origin_price">市场价</label>
+                            <div class="controls">
+                                <input class="input-xlarge" type="text" id="input_origin_price" name="obj['origin_price']" value="" required>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>媒体</span>
+                    </td>
+                    <td>
+                        <div class="control-group">
+                            <label class="control-label" for="input_image">描述图</label>
+                            <div class="controls">
+                                <input class="input-xlarge" type="text" id="input_image" name="obj['image']" value="">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>操作</span>
+                    </td>
+                    <td>
+                        <div class="control-group">
+                            <label class="control-label" for="input_sort">排序</label>
+                            <div class="controls">
+                                <input class="input-xlarge" type="text" id="input_sort" name="obj['sort']" value="">
+                            </div>
+                            <label class="control-label" for="input_on_sale_flag">是否上架</label>
+                            <div class="controls">
+                                <input class="input-xlarge" type="text" id="input_on_sale_flag" name="obj['on_sale_flag']" value="">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <div class="control-group">
+                <div class="controls">
+                    <button type="submit" class="btn btn-success">提交表单</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% end %}
+
+{% block foot_js  %}
+{% if not result.get('mode','') %}
+<script type="text/javascript" src="{{ static_url('assets/cke/ckeditor.js') }}"></script>
+<script type="text/javascript">
+    CKEDITOR.replace('input_goods_content', {
+        height: 270,
+        filebrowserImageUploadUrl: '/admin/file/upload'
+    });
+</script>
+{% end %}
+
+<script type="text/javascript">
+    $('#form-post').find('.label').on('click', function(){
+        var val = $('#input_term_list').val();
+        val = val == '' ? $(this).attr('alt') : val + ' ' + $(this).attr('alt');
+
+        $('#input_term_list').val(val);
+    });
+</script>
+
+<script>
+
+</script>
+{% end %}

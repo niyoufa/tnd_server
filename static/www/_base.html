@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>后台管理</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<link rel="stylesheet" href="{{ static_url('assets/css/bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ static_url('assets/css/googstyle.min.css') }}">
+
+{% block head_css_mid %}{% end %}
+
+<link rel="stylesheet" href="{{ static_url('assets/css/framework.min.css') }}">
+<link rel="stylesheet" href="{{ static_url('assets/css/customize.min.css') }}">
+
+{% block head_css %}{% end %}
+{% block head_js %}{% end %}
+
+<!--[if lt IE 9]><script src="{{ static_url('assets/js/html5shiv.min.js') }}"></script><![endif]-->
+</head>
+
+<body data-exts-scrollup="1" data-spy="scroll">
+<header class="header">
+    <nav class="navbar navbar-static-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="brand" href="" ></a>
+
+                <div class="nav-collapse collapse">
+                    <ul class="nav">
+                        {% block navs %}{% end %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<main class="vessel">
+    <div class="container">
+        {% block main %}{% end %}
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="container">
+    </div>
+</footer>
+
+<script src="{{ static_url('assets/js/jquery-1.10.1.min.js') }}"></script>
+<script src="{{ static_url('assets/js/jquery.form.min.js') }}"></script>
+<script src="{{ static_url('assets/js/jquery.scrollUp.min.js') }}"></script>
+<script src="{{ static_url('assets/js/bootstrap.min.js') }}"></script>
+<!--<script src="{{ static_url('assets/js/customize.min.js') }}"></script>-->
+{% block foot_js %}{% end %}
+</body>
+</html>
